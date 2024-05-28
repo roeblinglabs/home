@@ -1,41 +1,9 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title> Bridge Vibration Tool</title>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World Page</title>
 </head>
 <body>
-<main>
-
-<h2> Instructions</h2>
-<p>1. Place smartphone or tablet on bridge with screen facing up.</p>
-<p>2. Select a location with the largest vibrations, such as on the sidewalk at midspan.</p>
-<p>3. Wait for a truck to appear.</p>
-<p>4. Recording one minute of vibrations or a few seconds before and after a heavy vehicle passes the span is enough.</p>
-<p></p>
-<p>----</p>
-<p></p>
-<button onclick="getLocation()"><h1>Start Measuring Bridge Vibrations</h1></button>
-<p></p>
-<p></p>
-<p id="demo"></p>
-  
-<script>
-const x = document.getElementById("demo");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude + 
-  "<br>Geolocation Accuracy: " + position.coords.accuracy + " (meters)";
-}
-</script>
-  
+    <h1>Hello, World!</h1>
 </body>
 </html>
