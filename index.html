@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Roebling Labs</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
         .button {
             font-size: 1.5em; /* h2 font size */
             padding: 10px 20px;
-            background-color: #D3D3D3;
-            color: black;
+            background-color: #4CAF50;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -17,39 +47,68 @@
         .button:hover {
             background-color: #45a049;
         }
+        .hidden {
+            display: none;
+        }
     </style>
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const formId = '1FAIpQLSdKOpD8aS6TJoCnsUYUqJ-V3D2I2Q4QG9Nk7TzC_Jw_aYbRjA'; // Replace with your Google Form ID
+            const entry = 'entry.1234567890'; // Replace with your form entry ID for email field
+
+            const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
+            const formData = new FormData();
+            formData.append(entry, email);
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+
+                document.getElementById('response').classList.remove('hidden');
+                document.getElementById('form').reset();
+            } catch (error) {
+                console.error('Error!', error.message);
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1>Roebling Labs</h1>
-    <h2>Detect structural damage in bridges</h2>
-    <p>Our Bridge Vibration Tool uses your smartphone to measure bridge vibrations, calculate natural frequencies, and detect damage in your structure.</p>
-    <p>
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLScDu0XgF8pLookT2HHkEBrxhMpn6Io9o11ptZ2NPcsnZl3RfQ/viewform?usp=sharing" method="GET" target="_blank">
-            Enter your email: <input type="email" name="email" required>
+    <div class="container">
+        <h1>Roebling Labs</h1>
+        <h2>Detect structural damage in bridges</h2>
+        <p>Our Bridge Vibration Tool uses your smartphone to measure bridge vibrations, calculate natural frequencies, and detect damage in your structure.</p>
+        <form id="form" onsubmit="submitForm(event)">
+            Enter your email: <input type="email" id="email" required>
             <button type="submit" class="button">Get Started Now</button>
         </form>
-    </p>
-    <p>Try for free. No credit card needed. Unsubscribe anytime.</p>
-    <p><a href="https://roeblinglabs.github.io/bridgevibes/">Watch Demo Video</a></p>
-    <p>.................................</p>
-    <h2>About</h2>
-    <p>Roebling Labs builds bridge assessment tools.</p>
-    <p>Vision: Sensors with real-time analytics for every bridge.</p>
-    <p></p>
-    <h2>Master Plan</h2>
-    <p>1. Build a <a href="https://roeblinglabs.github.io/bridgevibes/">Bridge Vibration Tool</a> for professional bridge inspectors. (Status: Done)</p>
-    <p>     It uses your smartphone accelerometer to measure bridge vibrations, calculate natural frequencies, and detect damage in your structure.</p>
-    <p>2. Use that tool to engage with bridge owners and engineers to gather feedback. (Status: In Progress)</p>
-    <p>3. Use that feedback to build new, better bridge assessment tools.</p>
-    <p>4. Incorporate crowdsourced data and non-contact (video) sensors.</p>
-    <p></p>
-    <h2>References</h2>
-    <p>Read our article <a href="https://www.buildbigideas.com/_files/ugd/db8110_d6b141b9a8cc41d9a60bc258ce355855.pdf">Emerging Technologies in Structural Health Monitoring</a> in Bridge Design & Engineering Magazine, published Fourth Quarter 2023, Issue 113.</p>
-    <p>See our workshop at the <a href="https://eswp.com/bridge/program/wednesday-am/#w07">International Bridge Conference, 2024</a></p>
-    <p>Associated with the <a href="https://www.bu.edu/innovate/about/build-lab/">Boston University BUild Lab</a></p>
-    <p></p>
-    <h2>Contact Us</h2>
-    <p>Submit suggestions to: <a href="mailto:scott@roeblinglabs.com">scott@roeblinglabs.com</a></p>
-    <p>Connect with us on <a href="https://www.linkedin.com/in/scottsnellingpe/">LinkedIn</a></p>
+        <p id="response" class="hidden">Thank you for signing up!</p>
+        <p>Try for free. No credit card needed. Unsubscribe anytime.</p>
+        <p><a href="https://roeblinglabs.github.io/bridgevibes/">Watch Demo Video</a></p>
+        <p>.................................</p>
+        <h2>About</h2>
+        <p>Roebling Labs builds bridge assessment tools.</p>
+        <p>Vision: Sensors with real-time analytics for every bridge.</p>
+        <p></p>
+        <h2>Master Plan</h2>
+        <p>1. Build a <a href="https://roeblinglabs.github.io/bridgevibes/">Bridge Vibration Tool</a> for professional bridge inspectors. (Status: Done)</p>
+        <p>     It uses your smartphone accelerometer to measure bridge vibrations, calculate natural frequencies, and detect damage in your structure.</p>
+        <p>2. Use that tool to engage with bridge owners and engineers to gather feedback. (Status: In Progress)</p>
+        <p>3. Use that feedback to build new, better bridge assessment tools.</p>
+        <p>4. Incorporate crowdsourced data and non-contact (video) sensors.</p>
+        <p></p>
+        <h2>References</h2>
+        <p>Read our article <a href="https://www.buildbigideas.com/_files/ugd/db8110_d6b141b9a8cc41d9a60bc258ce355855.pdf">Emerging Technologies in Structural Health Monitoring</a> in Bridge Design & Engineering Magazine, published Fourth Quarter 2023, Issue 113.</p>
+        <p>See our workshop at the <a href="https://eswp.com/bridge/program/wednesday-am/#w07">International Bridge Conference, 2024</a></p>
+        <p>Associated with the <a href="https://www.bu.edu/innovate/about/build-lab/">Boston University BUild Lab</a></p>
+        <p></p>
+        <h2>Contact Us</h2>
+        <p>Submit suggestions to: <a href="mailto:scott@roeblinglabs.com">scott@roeblinglabs.com</a></p>
+        <p>Connect with us on <a href="https://www.linkedin.com/in/scottsnellingpe/">LinkedIn</a></p>
+    </div>
 </body>
 </html>
