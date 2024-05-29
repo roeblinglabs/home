@@ -18,6 +18,9 @@
         .button:hover {
             background-color: grey;
         }
+        .hidden {
+            display: none;
+        }
     </style>
     <script>
         async function submitForm(event) {
@@ -31,13 +34,14 @@
             formData.append(entry, email);
 
             try {
-                await fetch(url, {
+                const response = await fetch(url, {
                     method: 'POST',
                     mode: 'no-cors',
                     body: formData
                 });
 
-                window.location.href = "https://roeblinglabs.github.io/bridgevibes/";
+                document.getElementById('response').classList.remove('hidden');
+                document.getElementById('form').reset();
             } catch (error) {
                 console.error('Error!', error.message);
             }
@@ -54,6 +58,7 @@
             <button type="submit" class="button">Get Started Now</button>
         </form>
     </p>
+    <p id="response" class="hidden">Thank you for signing up!</p>
     <p>Try for free. No credit card needed. Unsubscribe anytime.</p>
     <p><a href="https://roeblinglabs.github.io/bridgevibes/">Watch Demo Video</a></p>
     <p>.................................</p>
