@@ -18,30 +18,26 @@
         .button:hover {
             background-color: grey;
         }
-        .hidden {
-            display: none;
-        }
     </style>
     <script>
         async function submitForm(event) {
             event.preventDefault();
             const email = document.getElementById('email').value;
-            const formId = '1FAIpQLSdKOpD8aS6TJoCnsUYUqJ-V3D2I2Q4QG9Nk7TzC_Jw_aYbRjA'; // Replace with your Google Form ID
-            const entry = 'entry.1234567890'; // Replace with your form entry ID for email field
+            const formId = '1U3cdPyOoo8dWQwnpM3-IiuNtFXP_-7jgmx6iE9qTmYw'; // Replace with your Google Form ID
+            const entry = 'entry.1U3cdPyOoo8dWQwnpM3-IiuNtFXP_-7jgmx6iE9qTmYw'; // Replace with your form entry ID for email field
 
             const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
             const formData = new FormData();
             formData.append(entry, email);
 
             try {
-                const response = await fetch(url, {
+                await fetch(url, {
                     method: 'POST',
                     mode: 'no-cors',
                     body: formData
                 });
 
-                document.getElementById('response').classList.remove('hidden');
-                document.getElementById('form').reset();
+                window.location.href = "https://roeblinglabs.github.io/bridgevibes/";
             } catch (error) {
                 console.error('Error!', error.message);
             }
@@ -58,7 +54,6 @@
             <button type="submit" class="button">Get Started Now</button>
         </form>
     </p>
-    <p id="response" class="hidden">Thank you for signing up!</p>
     <p>Try for free. No credit card needed. Unsubscribe anytime.</p>
     <p><a href="https://roeblinglabs.github.io/bridgevibes/">Watch Demo Video</a></p>
     <p>.................................</p>
@@ -83,3 +78,4 @@
     <p>Connect with us on <a href="https://www.linkedin.com/in/scottsnellingpe/">LinkedIn</a></p>
 </body>
 </html>
+
