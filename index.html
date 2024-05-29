@@ -19,30 +19,38 @@
             background-color: grey;
         }
     </style>
-    <script>
-        async function submitForm(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const formId = '1FAIpQLScDu0XgF8pLookT2HHkEBrxhMpn6Io9o11ptZ2NPcsnZl3RfQ'; // Replace with your Google Form ID
-            const entry = 'entry.YPqjbf'; // Replace with your form entry ID for email field
+<script>
+async function submitForm(event) {
+  event.preventDefault();
 
-            const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
-            const formData = new FormData();
-            formData.append(entry, email);
+  const email = document.getElementById('email').value;
+  const formId = '1FAIpQLScDu0XgF8pLookT2HHkEBrxhMpn6Io9o11ptZ2NPcsnZl3RfQ'; // Replace with your Google Form ID
+  const entry = 'entry.XXXXXXXXX'; // Replace with your form entry ID for email field
+  const url = `https://docs.google.com/forms/d/e/${formId}/formResponse`;
 
-            try {
-                await fetch(url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                });
+  const formData = new FormData();
+  formData.append(entry, email);
 
-                window.location.href = "https://roeblinglabs.github.io/bridgevibes/";
-            } catch (error) {
-                console.error('Error!', error.message);
-            }
-        }
-    </script>
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      // Form submission successful
+      window.location.href = "https://roeblinglabs.github.io/bridgevibes/";
+    } else {
+      // Form submission failed
+      console.error('Form submission failed.');
+      // Display an error message to the user
+    }
+  } catch (error) {
+    console.error('Error!', error.message);
+    // Display an error message to the user
+  }
+}
+</script>
 </head>
 <body>
     <h1>Roebling Labs</h1>
