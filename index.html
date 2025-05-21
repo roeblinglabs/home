@@ -281,6 +281,14 @@
             background: var(--accent-blue);
         }
 
+        /* Form Success Message */
+        #form-success {
+            color: var(--accent-blue);
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
@@ -467,10 +475,12 @@
                 <p>To bridge owners and consulting engineers that are interested in using our solutions, send me an email at <a href="mailto:scott@roeblinglabs.com" style="color: var(--text-blue);">scott@roeblinglabs.com</a> to discuss the costs for your project.</p>
                 <p>Participation in a case study can unlock significant savings in 2025 as we continue to work with beta partners.</p>
                 
-                <div class="newsletter-form">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">Subscribe to Newsletter</button>
-                </div>
+                <!-- Updated Newsletter Form with Formspree Integration -->
+                <form id="emailSignInForm" action="https://formspree.io/f/xwkgdbvz" method="POST" class="newsletter-form">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" class="large-input" required>
+                    <button type="submit" class="button">Subscribe to Newsletter</button>
+                </form>
+                <div id="form-success">Thank you for subscribing! We'll be in touch soon.</div>
             </div>
         </div>
     </section>
@@ -486,11 +496,40 @@
             });
         });
 
-        // Newsletter form submission
-        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+        // Newsletter form submission with Formspree
+        document.getElementById('emailSignInForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for subscribing! We will be in touch soon.');
-            // In a real implementation, you would send this to your backend
+            
+            const form = this;
+            const successMessage = document.getElementById('form-success');
+            
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    form.reset();
+                    successMessage.style.display = 'block';
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                    
+                    return response.json();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Oops! There was a problem submitting your form. Please try again.');
+            });
         });
     </script>
 </body>
